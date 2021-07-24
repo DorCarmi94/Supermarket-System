@@ -1,0 +1,117 @@
+init
+New supplier ID: 0
+New supplier ID: 1
+The contract was added
+
+getPaymentOptions
+Payment options are: CASH BANKTRANSFER PAYMENTS +30DAYSPAYMENT CHECK
+
+getPaymentOptions 0
+Payment options are: CASH
+
+updatePaymentOptions add 0 CHEck
+Options was updated
+
+getPaymentOptions 0
+Payment options are: CASH,CHECK
+
+getAllSuppliers
+SupplierID : 0, supplier name : supplier1
+SupplierID : 1, supplier name : supplier2
+
+addContactInfoToSupplier 1 a a a
+The contact has been added
+
+addProductToSupplier 0
+Product format : <product Id> <catalog number> <original price>
+	<name> <manufacture> <discount per amount {amount:discount,amount:discount...}>
+10 123 1500 tv lg {100:0.01}
+The product has been added
+
+discountReport 0
+Product ID: 1
+Discounts :
+	100 : 0.050000
+	10 : 0.010000
+Original price : 10.900000
+Product ID: 2
+Discounts :
+Original price : 90.000000
+Product ID: 10
+Discounts :
+	100 : 0.010000
+Original price : 1500.000000
+
+discountReport 1
+No such supplier ID or there isnt a contract with the supplier
+
+getAllSupplierProductsId 0
+Invalid function
+
+getAllSupplierProductsBarcode
+Invalid function
+
+getAllSupplierBarcode 0
+Barcode : 1, Catalog number : 1
+Barcode : 2, Catalog number : 100
+Barcode : 10, Catalog number : 123
+
+getAllSupplierBarcode 1
+Invalid supplier itemId or no contract
+
+getAllSupplierProductsDetalis 0
+barcode: 1
+catalog number : 1
+original price : 10.900000
+	100 : 0.050000
+	10 : 0.010000
+
+manufacture : manufacture1
+name : product1
+
+barcode: 2
+catalog number : 100
+original price : 90.000000
+
+manufacture : manufacture1
+name : product2
+
+barcode: 10
+catalog number : 123
+original price : 1500.000000
+	100 : 0.010000
+
+manufacture : lg
+name : tv
+
+getAllSupplierProductsDetalis 1
+Invalid supplier itemId or no contract
+
+createNewOrder 0
+Enter the numbers of product you want the order : 2
+Enter product ID and amount
+	 format <productID> <amount>
+1 10
+2 100
+Order itemId : 0
+
+createNewOrder 0
+Enter the numbers of product you want the order : 1
+Enter product ID and amount
+	 format <productID> <amount>
+10 100
+Order itemId : 1
+
+updateOrderArrivalDay 0 sunday
+Order was updated
+
+updateOrderStatus 0 close
+Order was updated
+
+updateOrderStatus 5 close
+Order was not updated
+
+getPruchaseHistoryFromSupplier 0
+The catalog numbers ids:
+1 100 123 
+

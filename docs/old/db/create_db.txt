@@ -1,0 +1,191 @@
+CREATE TABLE IF NOT EXISTS Supplier(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	sup_name TEXT NOT NULL,
+	address TEXT NOT NULL,
+	account_number TEXT NOT NULL,
+	paymentInfo TEXT NOT NULL,
+	inc_number TEXT NOT NULL,
+	area INTEGER NOT NULL,
+	self_delivery INTEGER NOT NULL,
+	UNIQUE(inc_number)
+);
+
+CREATE TABLE IF NOT EXISTS supplay_days(
+	supplay_day INTEGER NOT NULL,
+	supplier_id INTEGER,
+	
+	PRIMARY KEY (supplier_id, supplay_day)
+	FOREIGN KEY (supplier_id)
+		REFERENCES Supplier(id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+	CONSTRAINT day_range CHECK (supplay_day > 0 AND supplay_day < 8)
+);
+
+CREATE TABLE IF NOT EXISTS Contact_info(
+	name TEXT NOT NULL,
+	phone_number TEXT NOT NULL,
+	email TEXT NOT NULL,
+	supplier_id INTEGER NOT NULL,
+	PRIMARY KEY (name, phone_number, email)
+	FOREIGN KEY (supplier_id)
+		REFERENCES Supplier (id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+);
+
+--Sup_Inv.Suppliers.Supplier contract
+CREATE TABLE IF NOT EXISTS Contract(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	contract_info TEXT NOT NULL,
+	supplier_id INTEGER NOT NULL,
+	UNIQUE(supplier_id),
+	FOREIGN KEY (supplier_id)
+		REFERENCES Supplier(id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Product_in_contract(
+	contract_id INTEGER NOT NULL,
+	catalog_number TEXT NOT NULL,
+	barcode INTEGER NOT NULL,
+	original_price DOUBLE NOT NULL,
+	PRIMARY KEY (catalog_number, contract_id),
+	FOREIGN KEY (barcode)
+		REFERENCES Product(barcode)
+			ON DELETE RESTRICT
+			ON UPDATE CASCADE
+	FOREIGN KEY (contract_id)
+		REFERENCES Contract(id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Discount_of_product_in_contract(
+	amount INTEGER NOT NULL,
+	discount DOUBLE NOT NULL,
+	catalog_number TEXT NOT NULL,
+	contract_id INTEGER NOT NULL,
+	PRIMARY KEY (amount, discount, catalog_number, contract_id),
+	FOREIGN KEY (catalog_number, contract_id)
+		REFERENCES Product_in_contract(catalog_number, contract_id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+	CONSTRAINT discount_constraint 
+		CHECK(discount > 0 AND discount < 1)
+);
+
+--Product
+CREATE TABLE IF NOT EXISTS Product(
+	barcode INTEGER NOT NULL,
+	name TEXT NOT NULL,
+	manufacture TEXT NOT NULL,
+	category VARCHAR(32),
+	subCategory VARCHAR(32),
+	size VARCHAR(12),
+	freqSupply INTEGER,
+	minPrice DOUBLE,
+	PRIMARY KEY (barcode)
+	--CHECK (barcode > -1)
+);
+
+--Order
+CREATE TABLE IF NOT EXISTS Supplier_order(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	shop_number INTEGER NOT NULL,
+	status INTEGER NOT NULL,
+	delivery_day TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Periodical_supplier_order(
+	id INTEGER NOT NULL,
+	
+	PRIMARY KEY (id)
+	FOREIGN KEY(id)
+		REFERENCES Supplier_order(id)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Regular_supplier_order(
+	id INTEGER NOT NULL,
+	
+	PRIMARY KEY (id)
+	FOREIGN KEY(id)
+		REFERENCES Supplier_order(id)
+			ON DELETE RESTRICT
+			ON UPDATE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS Product_in_order(
+	order_id INTEGER NOT NULL,
+	contract_id INTEGER NOT NULL,
+	catalog_number TEXT NOT NULL,
+	amount INTEGER NOT NULL,
+	price_per_unit DOUBLE NOT NULL,
+	PRIMARY KEY (order_id, catalog_number)
+	FOREIGN KEY (order_id)
+		REFERENCES Supplier_order(id)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE
+	FOREIGN KEY (catalog_number, contract_id)
+		REFERENCES Product_in_contract(catalog_number, contract_id)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE
+	CONSTRAINT amount_in_order
+		CHECK (amount > 0)
+);
+
+CREATE TABLE IF NOT EXISTS Supplier_paymentOptions(
+	sup_id	INTEGER NOT NULL,
+	paymentOption	TEXT NOT NULL,
+	PRIMARY KEY(sup_id, paymentOption),
+	FOREIGN KEY(sup_id) REFERENCES Supplier(id)
+);
+
+--Views
+
+CREATE VIEW IF NOT EXISTS Suppliers_products
+AS
+SELECT S.id AS supplier_id,PIC.catalog_number as catalog_number, PIC.barcode AS barcode
+FROM Supplier AS S JOIN Contract AS C
+	JOIN Product_in_contract AS PIC
+	ON S.id = C.supplier_id AND C.id = PIC.contract_id;
+
+--Sup_Inv.Inventory
+
+CREATE TABLE Sup_Inv.Inventory(
+	id	TEXT,
+	name	TEXT,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE Items (
+	shopNum	TEXT NOT NULL,
+	id	TEXT NOT NULL,
+	qShop	TEXT,
+	qStorage	TEXT,
+	PRIMARY KEY(shopNum,id)
+);
+
+CREATE TABLE Defectives (
+	defId	TEXT,
+	itemId	TEXT,
+	quantity	NUMERIC,
+	updateDate	DATE,
+	expired	BLOB,
+	defective	BLOB,
+	shopNum	TEXT
+);
+
+CREATE TABLE Records (
+	recId	TEXT,
+	shopNum	TEXT,
+	itemId	TEXT,
+	cost	DOUBLE,
+	price	DOUBLE,
+	costChangeDate	DATETIME,
+	priceChangeDate	DATETIME,
+	PRIMARY KEY(recId, shopNum, itemId)
+);

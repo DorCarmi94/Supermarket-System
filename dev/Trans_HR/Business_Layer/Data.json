@@ -1,0 +1,213 @@
+{
+  "Drivers": [
+    {
+      "name": "amit1",
+      "licenses": "C1"
+    },
+    {
+      "name": "amit2",
+      "licenses": "C1"
+    },
+    {
+      "name": "reut",
+      "licenses": "C C1"
+    },
+    {
+      "name": "mor",
+      "licenses": "C C1"
+    },
+    {
+      "name": "reut2",
+      "licenses": "C"
+    },
+    {
+      "name": "daniel",
+      "licenses": "C C1"
+    }
+  ],
+  "Sites": [
+    {
+      "name": "store1",
+      "site_type": "store",
+      "city": "beersheva",
+      "street": "takov cohen",
+      "number": 3,
+      "name_of_contact": "reut",
+      "phone": "0545774339",
+      "area":"A"
+    },
+	  
+
+
+    {
+      "id":2,
+      "name": "tnova",
+      "site_type": "supplier",
+      "city": "ramat gan",
+      "street": "takov cohen",
+      "number": 3,
+      "name_of_contact": "roi",
+      "phone": "0545774339",
+      "area":"B"
+    },
+	  
+    {
+      "name": "Osem",
+      "site_type": "supplier",
+      "city": "Haifa",
+      "street": "Remez",
+      "number": 3,
+      "name_of_contact": "hadas",
+      "phone": "0548844345",
+      "area":"C"
+    },
+    {
+      "name": "store2",
+      "site_type": "store",
+      "city": "Tel Aviv",
+      "street": "Shlomo",
+      "number": 3,
+      "name_of_contact": "mor",
+      "phone": "0546343178",
+      "area":"D"
+    },
+    {
+      "name": "Shtraus",
+      "site_type": "supplier",
+      "city": "Beer Sheva",
+      "street": "Rager",
+      "number": 164,
+      "name_of_contact": "reut",
+      "phone": "0546343178",
+      "area":"A"
+    },
+    {
+      "name": "store3",
+      "site_type": "store",
+      "city": "Ramat Gan",
+      "street": "David Hamelech",
+      "number": 64,
+      "name_of_contact": "Roi",
+      "phone": "0546343169",
+      "area":"B"
+    },
+	  {
+      "name": "store311",
+      "site_type": "store",
+      "city": "beersheva",
+      "street": "takov cohen",
+      "number": 3,
+      "name_of_contact": "reut",
+      "phone": "0545774339",
+      "area":"A"
+    },
+    
+    {
+      "name": "Neviot",
+      "site_type": "supplier",
+      "city": "Tel Aviv",
+      "street": "Rotchild",
+      "number": 64,
+      "name_of_contact": "amit",
+      "phone": "0546323494",
+      "area":"D"
+    },
+	  {
+      "name": "aaa",
+      "site_type": "supplier",
+      "city": "Tel Aviv",
+      "street": "Rotchild",
+      "number": 64,
+      "name_of_contact": "amit7",
+      "phone": "0546323544",
+      "area":"D"
+    },
+	  {
+      "name": "store4",
+      "site_type": "store",
+      "city": "Haifa",
+      "street": "Remez",
+      "number": 64,
+      "name_of_contact": "Hadar",
+      "phone": "0546328694",
+      "area":"C"
+    },
+	  {
+      "id":2,
+      "name": "tnova21",
+      "site_type": "supplier",
+      "city": "ramat gan",
+      "street": "takov cohen",
+      "number": 3,
+      "name_of_contact": "roi",
+      "phone": "0545774339",
+      "area":"B"
+    }
+    
+  ],
+  "Trucks": [
+    {
+      "license_number": 12345678,
+      "type": "two",
+      "model": "skoda",
+      "weight": 160,
+      "max weight": 240,
+      "licenses": ["C"]
+    },
+    {
+      "license_number": 12735778,
+      "type": "two",
+      "model": "volvo",
+      "weight": 180,
+      "max weight": 300,
+      "licenses": ["C"]
+
+    },
+    {
+      "license_number": 12745678,
+      "type": "one",
+      "model": "volvo",
+      "weight": 250,
+      "max weight": 400,
+      "licenses": ["C"]
+    },
+    {
+      "license_number": 14365769,
+      "type": "two",
+      "model": "mercedes",
+      "weight": 256,
+      "max weight": 384,
+      "licenses": ["C"]
+    },
+    {
+      "license_number": 14967069,
+      "type": "one",
+      "model": "volvo",
+      "weight": 328,
+      "max weight": 521,
+      "licenses": ["C","C1"]
+    }
+  ],
+  "Missing_Items": [
+    {
+      "store_id": 4,
+      "supplier_id": 2,
+      "items_list": ["300:chocolate","500: Yogurt", "100:Chips"]
+    },
+    {
+      "store_id": 7,
+      "supplier_id": 3,
+      "items_list": ["1000:water"]
+    },
+    {
+      "store_id": 6,
+      "supplier_id": 3,
+      "items_list": ["1000:milk","500: white cheese","600: yogurt"]
+    },
+    {
+      "store_id": 6,
+      "supplier_id": 8,
+      "items_list": ["1000:bamba","550: chips","800: cookies"]
+    }
+  ]
+}
